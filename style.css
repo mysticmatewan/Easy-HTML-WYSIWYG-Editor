@@ -279,7 +279,7 @@ button {
 }
 
 a {
-    color: black; /* Set link color to black */
+    color: #007acc; /* Set link color to black */
     text-decoration: underline; /* Underline the text */
     transition: color 0.3s ease; /* Smooth transition for hover effect */
 }
