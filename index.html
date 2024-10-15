@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy HTML WYSIWYG Editor</title>
+    <link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="banner">
+        <h1>HTML WYSIWYG EDITOR</h1>
+        <p>A Simple and Responsive Rich Text Editor</p>
+        <div class="icons">
+            <img src="https://banpraong.netlify.app/image/banner.png" alt="Ban Praong" />
+        </div>
+    </div>
+
+    <h2>Create Your HTML Post</h2>
+
+    <!-- Toolbar for WYSIWYG Editor -->
+<div id="toolbar">
+    <button id="menuToggle">Menu</button> <!-- Toggle button -->
+    <div id="menuItems" class="hidden"> <!-- Menu items -->
+        <button onclick="execCmd('bold')"><b>B</b></button>
+        <button onclick="execCmd('italic')"><i>I</i></button>
+        <button onclick="execCmd('underline')"><u>U</u></button>
+         <!-- Dropdown for headings -->
+        <div class="dropdown">
+            <button class="dropbtn">Headings</button>
+            <div class="dropdown-content">
+                <button onclick="execCmd('formatBlock', '<h1>')">H1</button>
+                <button onclick="execCmd('formatBlock', '<h2>')">H2</button>
+                <button onclick="execCmd('formatBlock', '<h3>')">H3</button>
+                <button onclick="execCmd('formatBlock', '<h4>')">H4</button>
+            </div>
+        </div>
+        <button onclick="execCmd('createLink', prompt('Enter a URL', 'http://'))">Insert Link</button>
+        <button onclick="execCmd('indent')">Indent</button>
+        <button onclick="execCmd('outdent')">Outdent</button>
+        <button onclick="generateTOC()">Table of Contents</button>
+        <button onclick="insertImage()">Insert Image</button>
+        <button onclick="insertVideo()">Insert Video</button>
+    </div>
+</div>
+
+    <!-- WYSIWYG Editor -->
+    <div contenteditable="true" id="editor"></div>
+    
+
+        <!-- Button to save and preview the post -->
+     
+    <button onclick="savePost()">Save Post</button>
+	
+	<!-- Text area to display generated HTML for copying -->
+        <h2>Generated HTML</h2>
+        <textarea id="htmlOutput" readonly rows="10" cols="80"></textarea>
+
+    <h3>Blog Post Preview</h3>
+    <div id="preview"></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
