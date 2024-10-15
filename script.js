@@ -22,9 +22,9 @@ function generateTOC(content) {
     return tocHTML + tempDiv.innerHTML;
 }
 
-// Function to save the blog post and display the HTML in the text area
+// Function to save the html post and display the HTML in the text area
 function savePost() {
-    const title = prompt("Enter the title of your blog post:");
+    const title = prompt("Enter the title of your HTML post:");
     let content = document.getElementById('editor').innerHTML;
 
     // Generate TOC based on headings in the content
