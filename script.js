@@ -95,3 +95,75 @@ function autoResizeEditor() {
 
 // Add an event listener to the editor for input events
 document.getElementById('editor').addEventListener('input', autoResizeEditor);
+
+// Function to insert a new paragraph when Enter is pressed
+function handleEditorInput(event) {
+    const editor = document.getElementById('editor');
+
+    // Check if the Enter key is pressed
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the default behavior (e.g., adding a newline)
+
+        // Get the current selection
+        const selection = window.getSelection();
+        const range = selection.getRangeAt(0);
+        
+        // Create a new paragraph element
+        const newParagraph = document.createElement('p');
+        newParagraph.innerText = ''; // Start with empty text
+
+        // Insert the new paragraph at the cursor's position
+        range.deleteContents(); // Clear the selection if any
+        range.insertNode(newParagraph);
+        
+        // Move the cursor to the new paragraph
+        range.setStartAfter(newParagraph);
+        range.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        // Trigger the auto-resize function
+        autoResizeEditor();
+    }
+}
+
+// Add event listeners for input and keydown
+const editor = document.getElementById('editor');
+editor.addEventListener('input', autoResizeEditor);
+editor.addEventListener('keydown', handleEditorInput);
+
+// Function to handle pasting HTML content
+editor.addEventListener('paste', function(event) {
+    event.preventDefault(); // Prevent default paste behavior
+    const clipboardData = event.clipboardData || window.clipboardData;
+    const pastedData = clipboardData.getData('text/html') || clipboardData.getData('text/plain');
+    
+    // Create a temporary div to parse the pasted content
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = pastedData;
+
+    // Wrap all text nodes in <p> elements
+    const paragraphs = tempDiv.querySelectorAll('p');
+    paragraphs.forEach(p => {
+        const newP = document.createElement('p');
+        newP.innerHTML = p.innerHTML; // Retain inner HTML of the pasted content
+        tempDiv.appendChild(newP);
+    });
+
+    // Insert the modified content at the cursor's position
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    range.deleteContents(); // Clear the selection if any
+    range.insertNode(tempDiv);
+
+    // Move the cursor to the end of the newly inserted content
+    range.collapse(false);
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    // Trigger the auto-resize function
+    autoResizeEditor();
+});
+
+
+
